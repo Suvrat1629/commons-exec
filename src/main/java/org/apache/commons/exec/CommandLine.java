@@ -29,6 +29,7 @@ import java.util.Objects;
 import java.util.StringTokenizer;
 
 import org.apache.commons.exec.util.StringUtils;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * CommandLine objects help handling command lines specifying processes to execute. The class can be used to a command line by an application.
@@ -83,7 +84,7 @@ public class CommandLine {
      * @return the parsed command line.
      * @throws IllegalArgumentException If line is null or all whitespace.
      */
-    public static CommandLine parse(final String line, final Map<String, ?> substitutionMap) {
+    public static CommandLine parse(final String line, final @Nullable Map<String, ?> substitutionMap) {
         if (line == null) {
             throw new IllegalArgumentException("Command line cannot be null");
         }
@@ -166,8 +167,7 @@ public class CommandLine {
         if (state == inQuote || state == inDoubleQuote) {
             throw new IllegalArgumentException("Unbalanced quotes in " + toProcess);
         }
-        final String[] args = new String[list.size()];
-        return list.toArray(args);
+        return list.toArray(new String[0]);
     }
 
     /**
@@ -183,7 +183,7 @@ public class CommandLine {
     /**
      * A map of name value pairs used to expand command line arguments.
      */
-    private Map<String, ?> substitutionMap; // This can contain values other than Strings.
+    private @Nullable Map<String, ?> substitutionMap; // This can contain values other than Strings.
 
     /**
      * Tests whether a file was used to set the executable.
@@ -366,7 +366,7 @@ public class CommandLine {
      *
      * @return the substitution map.
      */
-    public Map<String, ?> getSubstitutionMap() {
+    public @Nullable Map<String, ?> getSubstitutionMap() {
         return substitutionMap;
     }
 
@@ -384,7 +384,7 @@ public class CommandLine {
      *
      * @param substitutionMap the map
      */
-    public void setSubstitutionMap(final Map<String, ?> substitutionMap) {
+    public void setSubstitutionMap(final @Nullable Map<String, ?> substitutionMap) {
         this.substitutionMap = substitutionMap;
     }
 

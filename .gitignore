@@ -13,3 +13,5 @@ target
 # NetBeans files
 nb-configuration.xml
 nbactions.xml
+
+.class

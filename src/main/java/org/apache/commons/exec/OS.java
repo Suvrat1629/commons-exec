@@ -21,6 +21,7 @@ package org.apache.commons.exec;
 
 import java.io.File;
 import java.util.Locale;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Condition that tests the OS type.
@@ -257,7 +258,7 @@ public final class OS {
      * @param version The OS version.
      * @return whether the OS matches.
      */
-    public static boolean isOs(final String family, final String name, final String arch, final String version) {
+    public static boolean isOs(final @Nullable String family, final @Nullable String name, final @Nullable String arch, final @Nullable String version) {
         boolean retValue = false;
         if (family != null || name != null || arch != null || version != null) {
             boolean isFamily = true;

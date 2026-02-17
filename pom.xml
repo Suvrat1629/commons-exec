@@ -274,4 +274,45 @@ limitations under the License.
       <name>Niall Pemberton</name>
     </contributor>
   </contributors>
+
+  <profiles>
+    <profile>
+      <id>checkerframework-nullness</id>
+      <properties>
+        <checkerframework.version>3.42.0</checkerframework.version>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>org.checkerframework</groupId>
+          <artifactId>checker-qual</artifactId>
+          <version>${checkerframework.version}</version>
+        </dependency>
+      </dependencies>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.10.1</version>
+            <configuration>
+              <fork>true</fork>
+              <annotationProcessorPaths>
+                <path>
+                  <groupId>org.checkerframework</groupId>
+                  <artifactId>checker</artifactId>
+                  <version>${checkerframework.version}</version>
+                </path>
+              </annotationProcessorPaths>
+              <annotationProcessors>
+                <annotationProcessor>org.checkerframework.checker.nullness.NullnessChecker</annotationProcessor>
+              </annotationProcessors>
+              <compilerArgs>
+                <arg>-J--add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED</arg>
+                <arg>-Awarns</arg> 
+              </compilerArgs>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>

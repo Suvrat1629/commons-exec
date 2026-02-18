@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Map;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 import org.apache.commons.exec.CommandLine;
 
@@ -39,7 +40,7 @@ public interface CommandLauncher {
      * @return the newly created process.
      * @throws IOException if attempting to run a command in a specific directory.
      */
-    Process exec(CommandLine commandLine, Map<String, String> env) throws IOException;
+    Process exec(CommandLine commandLine, @Nullable Map<String, String> env) throws IOException;
 
     /**
      * Executes the given command in a new process, in the given working directory.
@@ -50,7 +51,7 @@ public interface CommandLauncher {
      * @return the newly created process.
      * @throws IOException if trying to change directory.
      */
-    Process exec(CommandLine commandLine, Map<String, String> env, File workingDirectory) throws IOException;
+    Process exec(CommandLine commandLine, @Nullable Map<String, String> env, File workingDirectory) throws IOException;
 
     /**
      * Executes the given command in a new process, in the given working directory.
@@ -62,7 +63,7 @@ public interface CommandLauncher {
      * @throws IOException if trying to change directory.
      * @since 1.5.0
      */
-    default Process exec(final CommandLine commandLine, final Map<String, String> env, final Path workingDirectory) throws IOException {
+    default Process exec(final CommandLine commandLine, final @Nullable Map<String, String> env, final Path workingDirectory) throws IOException {
         return exec(commandLine, env, workingDirectory != null ? workingDirectory.toFile() : null);
     }
 

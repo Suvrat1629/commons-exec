@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Map;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * The main abstraction to start an external process.
@@ -81,7 +82,7 @@ public interface Executor {
      * @throws ExecuteException execution of subprocess failed or the subprocess returned an exit value indicating a failure {@link Executor#setExitValue(int)}.
      * @throws IOException      If an I/O error occurs.
      */
-    int execute(CommandLine command, Map<String, String> environment) throws ExecuteException, IOException;
+    int execute(CommandLine command, @Nullable Map<String, String> environment) throws ExecuteException, IOException;
 
     /**
      * Executes a command asynchronously. The child process inherits all environment variables of the parent process. Result provided to callback handler.
@@ -92,28 +93,28 @@ public interface Executor {
      * @throws ExecuteException execution of subprocess failed.
      * @throws IOException      If an I/O error occurs.
      */
-    void execute(CommandLine command, Map<String, String> environment, ExecuteResultHandler handler) throws ExecuteException, IOException;
+    void execute(CommandLine command, @Nullable Map<String, String> environment, ExecuteResultHandler handler) throws ExecuteException, IOException;
 
     /**
      * Sets the handler for cleanup of started processes if the main process is going to terminate.
      *
      * @return the ProcessDestroyer.
      */
-    ProcessDestroyer getProcessDestroyer();
+    @Nullable ProcessDestroyer getProcessDestroyer();
 
     /**
      * Gets the StreamHandler used for providing input and retrieving the output.
      *
      * @return the StreamHandler.
      */
-    ExecuteStreamHandler getStreamHandler();
+    @Nullable ExecuteStreamHandler getStreamHandler();
 
     /**
      * Gets the watchdog used to kill of processes running, typically, too long time.
      *
      * @return the watchdog.
      */
-    ExecuteWatchdog getWatchdog();
+    @Nullable ExecuteWatchdog getWatchdog();
 
     /**
      * Gets the working directory of the created process.
